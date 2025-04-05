@@ -1,23 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { View, Text, TextInput, Button, StyleSheet } from "react-native";
+import { UserContext } from "../context/UserContext";
 
 export default function HomeScreen({ navigation }) {
-  const [name, setName] = useState("");
-  const goToProfile = () => {
-    navigation.navigate("Profile", {
-      userName: name,
-    });
-  };
+
+  const { user } = useContext(UserContext);
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>홈 화면입니다 ⛰️</Text>
-      <TextInput
-        placeholder="이름 입력"
-        value={name}
-        onChangeText={setName}
-        style={styles.input}
-      />
-      <Button title="프로필로 이동" onPress={goToProfile} />
+      <Text style={styles.text}>
+      {user ? `${user.mbrName} 님, 정상에서 기다립니다! ⛰️` : '로그인 먼저 하세요!'}</Text>
     </View>
   );
 }
@@ -28,16 +20,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  title: {
-    fontSize: 20,
-    marginBottom: 20,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 5,
-    width: "80%",
-    padding: 10,
-    marginBottom: 20,
-  },
+  text: { fontSize: 20 },
 });
