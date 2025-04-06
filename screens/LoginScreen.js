@@ -3,6 +3,7 @@ import { View, Text, TextInput, Button, StyleSheet, Alert} from 'react-native'
 import axios from 'axios';
 
 import { UserContext } from '../context/UserContext';
+import { storeUser } from '../src/utils/authStorage';
 
 export default function LoginScreen({ navigation}) {
 
@@ -21,6 +22,9 @@ export default function LoginScreen({ navigation}) {
             const { Authorization, mbrName } = response.data;
 
             setUser({Authorization, mbrName}); //전역 상태 저장
+
+            await storeUser({Authorization,mbrName}); //저장
+
             Alert.alert('로그인 성공!', `${mbrName}님 환영합니다.`);
             navigation.navigate('Home')
         } catch(err){
