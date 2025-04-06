@@ -1,6 +1,6 @@
 import React, {createContext, useState, useEffect } from "react";
 
-import { getUser } from "../src/utils/authStorage";
+import { getUser } from "../utils/authStorage";
 
 export const UserContext = createContext();
 

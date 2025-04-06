@@ -3,7 +3,7 @@ import { View, Text, TextInput, Button, StyleSheet, Alert} from 'react-native'
 import axios from 'axios';
 
 import { UserContext } from '../context/UserContext';
-import { storeUser } from '../src/utils/authStorage';
+import { storeUser } from '../utils/authStorage';
 
 export default function LoginScreen({ navigation}) {
 

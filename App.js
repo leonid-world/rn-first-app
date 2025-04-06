@@ -2,11 +2,13 @@ import React, {useContext} from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import LoginScreen from "./screens/LoginScreen";
-import HomeScreen from "./screens/HomeScreen";
+import LoginScreen from "./src/screens/LoginScreen";
+import HomeScreen from "./src/screens/HomeScreen";
 
-import { UserProvider, UserContext } from "./context/UserContext";
-import SplashScreen from './screens/SplashScreen';
+import { UserProvider, UserContext } from "./src/context/UserContext";
+import SplashScreen from './src/screens/SplashScreen';
+
+import TabNavigator from "./src/navigation/TabNavigator";
 
 const Stack = createNativeStackNavigator();
 
@@ -17,12 +19,12 @@ function RootNavigator() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
         {
           !user ? (
             <Stack.Screen name="Login" component={LoginScreen}/>
           ) : (
-            <Stack.Screen name="Home" component={HomeScreen}/>
+            <Stack.Screen name="Main" component={TabNavigator}/>
           )
         }
       </Stack.Navigator>

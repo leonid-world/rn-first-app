@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { View, Text, TextInput, Button, StyleSheet } from "react-native";
 import { UserContext } from "../context/UserContext";
-import { removeUser } from "../src/utils/authStorage";
+import { removeUser } from "../utils/authStorage";
 
 export default function HomeScreen({ navigation }) {
 
