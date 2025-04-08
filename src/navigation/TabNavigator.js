@@ -11,6 +11,8 @@ import SettingsScreen from '../screens/SettingsScreen';
 import ImageUploadScreen from '../screens/ImageUploadScreen';
 import CameraUploadScreen from "../screens/CameraUploadScreen";
 
+import NotificationScreen from "../screens/NotificationScreen";
+
 
 const Tab = createBottomTabNavigator();
 
@@ -41,6 +43,7 @@ export default function TabNavigator(){
             >
             <Tab.Screen name="Home" component={HomeScreen}/>
             <Tab.Screen name="Settings" component={SettingsScreen}/>
+            <Tab.Screen name="Notifications" component={NotificationScreen} />
             {/**
              * 로그인한 유저만 보이는 탭
              */}
