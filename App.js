@@ -11,32 +11,65 @@ import SplashScreen from "./src/screens/SplashScreen";
 
 import TabNavigator from "./src/navigation/TabNavigator";
 
+import AuthNavigator from "./src/navigation/AuthNavigator";
+import DrawerNavigator from "./src/navigation/DrawerNavigator";
+
+import { enableScreens } from 'react-native-screens';
+enableScreens();
+
 const Stack = createNativeStackNavigator();
 
-function RootNavigator() {
-  const { user, isLoading } = useContext(UserContext);
+// V1 - Stack.Screen TabNavigator
+// function RootNavigator() {
+//   const { user, isLoading } = useContext(UserContext);
 
-  if (isLoading) return <SplashScreen />;
+//   if (isLoading) return <SplashScreen />;
+
+//   return (
+//     <GestureHandlerRootView style={{ flex: 1 }}>
+//       <NavigationContainer>
+//         {/* <Stack.Navigator screenOptions={{ headerShown: false }}>
+//           {!user ? (
+//             <Stack.Screen name="Login" component={LoginScreen} />
+//           ) : (
+//             <Stack.Screen name="Main" component={TabNavigator} />
+//           )}
+//         </Stack.Navigator> */}
+//         {/* <DrawerNavigator/> */}
+
+        
+//         <Stack.Navigator screenOptions={{ headerShown: false }}>
+//           {!user ? (
+//             <Stack.Screen name="Login" component={LoginScreen} />
+//           ) : (
+//             <Stack.Screen name="Main" component={DrawerNavigator} />
+//           )}
+//         </Stack.Navigator>
+//       </NavigationContainer>
+//     </GestureHandlerRootView>
+//   );
+// }
+
+
+// V2 - Navigator - AuthNavigator
+function RootNavigator() {
+  const {user, isLoading } = useContext(UserContext);
+
+  if(isLoading) return <SplashScreen/>;
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-          {!user ? (
-            <Stack.Screen name="Login" component={LoginScreen} />
-          ) : (
-            <Stack.Screen name="Main" component={TabNavigator} />
-          )}
-        </Stack.Navigator>
-      </NavigationContainer>
-    </GestureHandlerRootView>
-  );
+    <NavigationContainer>
+      {user ? <DrawerNavigator/> : <AuthNavigator />}
+    </NavigationContainer>
+  )
 }
 
 export default function App() {
   return (
     <UserProvider>
+      <GestureHandlerRootView style={{flex :1}}>
       <RootNavigator />
+      </GestureHandlerRootView>
     </UserProvider>
   );
 }
