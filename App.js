@@ -14,10 +14,14 @@ import TabNavigator from "./src/navigation/TabNavigator";
 import AuthNavigator from "./src/navigation/AuthNavigator";
 import DrawerNavigator from "./src/navigation/DrawerNavigator";
 
-import { enableScreens } from 'react-native-screens';
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+import { enableScreens } from "react-native-screens";
 enableScreens();
 
 const Stack = createNativeStackNavigator();
+
+const queryClient = new QueryClient();
 
 // V1 - Stack.Screen TabNavigator
 // function RootNavigator() {
@@ -37,7 +41,6 @@ const Stack = createNativeStackNavigator();
 //         </Stack.Navigator> */}
 //         {/* <DrawerNavigator/> */}
 
-        
 //         <Stack.Navigator screenOptions={{ headerShown: false }}>
 //           {!user ? (
 //             <Stack.Screen name="Login" component={LoginScreen} />
@@ -50,25 +53,26 @@ const Stack = createNativeStackNavigator();
 //   );
 // }
 
-
 // V2 - Navigator - AuthNavigator
 function RootNavigator() {
-  const {user, isLoading } = useContext(UserContext);
+  const { user, isLoading } = useContext(UserContext);
 
-  if(isLoading) return <SplashScreen/>;
+  if (isLoading) return <SplashScreen />;
 
   return (
     <NavigationContainer>
-      {user ? <DrawerNavigator/> : <AuthNavigator />}
+      {user ? <DrawerNavigator /> : <AuthNavigator />}
     </NavigationContainer>
-  )
+  );
 }
 
 export default function App() {
   return (
     <UserProvider>
-      <GestureHandlerRootView style={{flex :1}}>
-      <RootNavigator />
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <QueryClientProvider client={queryClient}>
+          <RootNavigator />
+        </QueryClientProvider>
       </GestureHandlerRootView>
     </UserProvider>
   );

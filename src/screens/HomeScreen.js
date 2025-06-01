@@ -2,9 +2,26 @@ import React, { useContext } from "react";
 import { View, Text, TextInput, Button, StyleSheet } from "react-native";
 import { UserContext } from "../context/UserContext";
 import { removeUser } from "../utils/authStorage";
+import { useQuery } from "@tanstack/react-query";
+import api from "../utils/axiosInstance";
+
+const fetchUser = async () => {
+  const res = await api.get("/api/v1/manager/mbr/member/my");
+
+  console.log("🔥 Response data:");
+  console.log(JSON.stringify(res, null, 2)); // 💥예쁘게!
+  return res.data.body;
+};
 
 export default function HomeScreen({ navigation }) {
   const { user, setUser } = useContext(UserContext);
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["user"],
+    queryFn: fetchUser,
+  });
+
+  if (isLoading) return <Text>Loading...</Text>;
+  if (error) return <Text>Error: {error.message}</Text>;
 
   const handleLogout = async () => {
     setUser(null);
@@ -16,7 +33,7 @@ export default function HomeScreen({ navigation }) {
     <View style={styles.container}>
       <Text style={styles.title}>홈 화면</Text>
       <Text style={styles.nickname}>
-        정상에서 기다리고 있던 {user.mbrName}님⛰️
+        정상에서 기다리고 있던 {data.mbrName}님⛰️
       </Text>
       <Button title="로그아웃" onPress={handleLogout} />
     </View>
