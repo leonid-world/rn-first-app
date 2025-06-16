@@ -1,7 +1,20 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
+import api from "../utils/axiosInstance";
+
+const fetchEdus = async () => {
+  const res = await api.get("/api/v1/user/contents/edus", {
+    rows: 10,
+    currentPage: 1,
+    courseSeq: 39,
+  });
+
+  console.log("edus res : ", res);
+};
+
 export default function PostListScreen({ navigation }) {
+  fetchEdus();
   const posts = [
     {
       id: 1,

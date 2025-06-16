@@ -13,6 +13,7 @@ import TabNavigator from "./src/navigation/TabNavigator";
 
 import AuthNavigator from "./src/navigation/AuthNavigator";
 import DrawerNavigator from "./src/navigation/DrawerNavigator";
+import { navigationRef } from "./src/utils/RootNavigation";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
@@ -60,7 +61,7 @@ function RootNavigator() {
   if (isLoading) return <SplashScreen />;
 
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef}>
       {user ? <DrawerNavigator /> : <AuthNavigator />}
     </NavigationContainer>
   );
